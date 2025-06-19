@@ -26,6 +26,18 @@
       color: white;
       border-radius: 10px;
     }
+    #egg {
+      width: 100px;
+      height: 150px;
+      background-color: #FFD700;
+      border-radius: 50%;
+      margin: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    #egg:hover {
+      transform: scale(1.1);
+    }
     button {
       padding: 10px 20px;
       font-size: 1.2em;
@@ -39,11 +51,11 @@
     button:hover {
       background-color: #005f6b;
     }
-    .shop {
-      margin-top: 30px;
+    .shop, .rebirth {
+      margin-top: 20px;
+      display: inline-block;
     }
     .upgrade-button {
-      margin-top: 10px;
       padding: 10px 15px;
       font-size: 1em;
       cursor: pointer;
@@ -52,59 +64,81 @@
       border: none;
       border-radius: 5px;
     }
+    .rebirth-button {
+      margin-left: 20px;
+      padding: 10px 15px;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Кликер</h1>
+  <h1>Кликер по яйцу</h1>
   <div class="counter" id="counter">0</div>
-  <button id="clickButton">Кликни меня!</button>
+  <div id="egg"></div>
 
   <div class="shop">
-    <h2>Улучшения</h2>
+    <h2>Магазин</h2>
     <button class="upgrade-button" id="upgradeButton">Увеличить на 2 за 50 очков</button>
   </div>
 
+  <div class="rebirth">
+    <button class="rebirth-button" id="rebirthButton">Rebirth (сбросить, но получить бонус)</button>
+  </div>
+
   <script>
+    // Инициализация данных из локального хранилища
+    let counter = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+    let upgradeCost = 50;
+    let upgradeMultiplier = 2;
+
+    // Обновление на странице
+    const counterElement = document.getElementById("counter");
+    const upgradeButton = document.getElementById("upgradeButton");
+    const egg = document.getElementById("egg");
+
+    // Обновление счетчика на странице
+    function updateCounter() {
+      counterElement.textContent = counter;
+      localStorage.setItem('counter', counter);
+    }
+
     // Логика кликов
-    const clicker = {
-      counter: 0,
-      multiplier: 1,
-      increase: function() {
-        this.counter += this.multiplier;
-        document.getElementById('counter').textContent = this.counter;
-      }
-    };
-
-    // Логика магазина
-    const shop = {
-      upgradeCost: 50,  // Ты можешь потом поменять эту цену
-      upgradeMultiplier: 2, // Новый множитель
-      upgradeButton: document.getElementById('upgradeButton'),
-      upgrade: function() {
-        if (clicker.counter >= this.upgradeCost) {
-          clicker.counter -= this.upgradeCost;
-          clicker.multiplier = this.upgradeMultiplier;
-          document.getElementById('counter').textContent = clicker.counter;
-          alert(`Множитель увеличен! Теперь за клик вы получаете ${clicker.multiplier} очков.`);
-          this.updateUpgradeButton();
-        } else {
-          alert("У вас недостаточно очков для улучшения!");
-        }
-      },
-      updateUpgradeButton: function() {
-        this.upgradeButton.textContent = `Увеличить на ${this.upgradeMultiplier} за ${this.upgradeCost} очков`;
-      }
-    };
-
-    // Обработчики событий
-    document.getElementById('clickButton').addEventListener('click', function() {
-      clicker.increase();
+    egg.addEventListener("click", function() {
+      counter++;
+      updateCounter();
     });
 
-    shop.upgradeButton.addEventListener('click', function() {
-      shop.upgrade();
+    // Логика магазина (улучшение)
+    upgradeButton.addEventListener("click", function() {
+      if (counter >= upgradeCost) {
+        counter -= upgradeCost;
+        upgradeMultiplier++;
+        upgradeCost = Math.floor(upgradeCost * 1.5);
+        updateCounter();
+        alert(`Множитель увеличен! Теперь за клик вы получаете ${upgradeMultiplier} очков.`);
+        upgradeButton.textContent = `Увеличить на ${upgradeMultiplier} за ${upgradeCost} очков`;
+      } else {
+        alert("Недостаточно очков для улучшения!");
+      }
     });
+
+    // Логика rebirth (сброс с бонусом)
+    document.getElementById("rebirthButton").addEventListener("click", function() {
+      counter = 0;
+      upgradeMultiplier = 1;
+      updateCounter();
+      alert("Игра сброшена. Вы получили бонус на улучшения!");
+    });
+
+    // Инициализация начальных значений
+    updateCounter();
+
   </script>
 
 </body>
