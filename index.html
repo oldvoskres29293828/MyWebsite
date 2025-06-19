@@ -3,143 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Кликер</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-    h1 {
-      font-size: 2em;
-    }
-    .counter {
-      font-size: 3em;
-      margin: 20px;
-      padding: 20px;
-      background-color: #4CAF50;
-      color: white;
-      border-radius: 10px;
-    }
-    #egg {
-      width: 100px;
-      height: 150px;
-      background-color: #FFD700;
-      border-radius: 50%;
-      margin: 20px;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    }
-    #egg:hover {
-      transform: scale(1.1);
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1.2em;
-      cursor: pointer;
-      border: none;
-      background-color: #008CBA;
-      color: white;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #005f6b;
-    }
-    .shop, .rebirth {
-      margin-top: 20px;
-      display: inline-block;
-    }
-    .upgrade-button {
-      padding: 10px 15px;
-      font-size: 1em;
-      cursor: pointer;
-      background-color: #f39c12;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    .rebirth-button {
-      margin-left: 20px;
-      padding: 10px 15px;
-      font-size: 1em;
-      cursor: pointer;
-      background-color: #e74c3c;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-  </style>
+  <title>Кликер по яйцу</title>
+  <link rel="stylesheet" href="css/style.css"> <!-- Подключаем внешний файл стилей -->
 </head>
 <body>
 
-  <h1>Кликер по яйцу</h1>
+  <h1>Кликай по яйцу!</h1>
   <div class="counter" id="counter">0</div>
   <div id="egg"></div>
 
-  <div class="shop">
-    <h2>Магазин</h2>
-    <button class="upgrade-button" id="upgradeButton">Увеличить на 2 за 50 очков</button>
-  </div>
-
-  <div class="rebirth">
+  <div class="buttons">
+    <button class="shop-button" id="upgradeButton">Увеличить на 2 за 50 очков</button>
     <button class="rebirth-button" id="rebirthButton">Rebirth (сбросить, но получить бонус)</button>
   </div>
 
-  <script>
-    // Инициализация данных из локального хранилища
-    let counter = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
-    let upgradeCost = 50;
-    let upgradeMultiplier = 2;
-
-    // Обновление на странице
-    const counterElement = document.getElementById("counter");
-    const upgradeButton = document.getElementById("upgradeButton");
-    const egg = document.getElementById("egg");
-
-    // Обновление счетчика на странице
-    function updateCounter() {
-      counterElement.textContent = counter;
-      localStorage.setItem('counter', counter);
-    }
-
-    // Логика кликов
-    egg.addEventListener("click", function() {
-      counter++;
-      updateCounter();
-    });
-
-    // Логика магазина (улучшение)
-    upgradeButton.addEventListener("click", function() {
-      if (counter >= upgradeCost) {
-        counter -= upgradeCost;
-        upgradeMultiplier++;
-        upgradeCost = Math.floor(upgradeCost * 1.5);
-        updateCounter();
-        alert(`Множитель увеличен! Теперь за клик вы получаете ${upgradeMultiplier} очков.`);
-        upgradeButton.textContent = `Увеличить на ${upgradeMultiplier} за ${upgradeCost} очков`;
-      } else {
-        alert("Недостаточно очков для улучшения!");
-      }
-    });
-
-    // Логика rebirth (сброс с бонусом)
-    document.getElementById("rebirthButton").addEventListener("click", function() {
-      counter = 0;
-      upgradeMultiplier = 1;
-      updateCounter();
-      alert("Игра сброшена. Вы получили бонус на улучшения!");
-    });
-
-    // Инициализация начальных значений
-    updateCounter();
-
-  </script>
-
+  <script src="js/script.js"></script> <!-- Подключаем внешний файл JavaScript -->
 </body>
 </html>
