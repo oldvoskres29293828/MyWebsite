@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Анонимное общение</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css"> <!-- Подключаем стили -->
 </head>
 <body>
 
   <div class="container">
     <h1>Анонимное общение</h1>
 
-    <!-- Форма для отправки сообщения -->
+    <!-- Форма для отправки нового сообщения -->
     <div class="new-message">
       <textarea id="messageInput" placeholder="Напишите ваше сообщение..."></textarea>
       <button id="postMessage">Отправить</button>
@@ -21,6 +21,73 @@
     <div id="messages"></div>
   </div>
 
-  <script src="js/script.js"></script>
+  <!-- Подключаем Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+  <script>
+    // Конфигурация Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAcKl7MYsjts5mvTf6Tpp1luePwt2TOYvU",
+      authDomain: "website-683a6.firebaseapp.com",
+      projectId: "website-683a6",
+      storageBucket: "website-683a6.firebasestorage.app",
+      messagingSenderId: "879721526266",
+      appId: "1:879721526266:web:9b57e581e583f3aa97ea43",
+      measurementId: "G-KB8P2B9X4Z"
+    };
+
+    // Инициализация Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore(app);
+
+    // Функция для отправки сообщения в Firestore
+    function postMessage(messageText) {
+      db.collection("messages").add({
+        text: messageText,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        console.log("Сообщение добавлено!");
+      })
+      .catch(error => {
+        console.error("Ошибка добавления сообщения: ", error);
+      });
+    }
+
+    // Функция для отображения сообщений из Firestore
+    function displayMessages() {
+      db.collection("messages")
+        .orderBy("timestamp", "desc")
+        .onSnapshot(snapshot => {
+          const messagesContainer = document.getElementById("messages");
+          messagesContainer.innerHTML = ''; // Очищаем контейнер перед выводом новых сообщений
+          snapshot.forEach(doc => {
+            const messageData = doc.data();
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerHTML = `<p>${messageData.text}</p>`;
+            messagesContainer.appendChild(messageElement);
+          });
+        });
+    }
+
+    // Запуск отображения сообщений при загрузке страницы
+    displayMessages();
+
+    // Обработчик отправки нового сообщения
+    document.getElementById('postMessage').addEventListener('click', () => {
+      const messageInput = document.getElementById('messageInput');
+      const messageText = messageInput.value.trim();
+      
+      if (messageText) {
+        postMessage(messageText);
+        messageInput.value = '';  // Очищаем поле ввода
+      } else {
+        alert('Пожалуйста, введите сообщение!');
+      }
+    });
+  </script>
+
 </body>
 </html>
