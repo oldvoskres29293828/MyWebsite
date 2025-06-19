@@ -1,83 +1,34 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
-  width: 80%;
-  max-width: 600px;
-  background-color: white;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  background: #f4f4f4;
 }
 
 h1 {
   text-align: center;
-  font-size: 2em;
+}
+
+.message-form {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.new-message textarea {
-  width: 100%;
+input[type="text"] {
+  width: 70%;
   padding: 10px;
   font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  resize: none;
 }
 
 button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 10px 20px;
   font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-#messages {
-  margin-top: 20px;
 }
 
 .message {
-  background-color: #f9f9f9;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.reply {
-  margin-top: 10px;
-  background-color: #e7f7e7;
+  background: white;
   padding: 10px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.replyButton {
-  margin-top: 10px;
-  background-color: #008CBA;
-  color: white;
-  padding: 8px;
+  margin: 10px auto;
   border-radius: 5px;
-  cursor: pointer;
-}
-
-.replyButton:hover {
-  background-color: #005f6b;
+  width: 80%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
