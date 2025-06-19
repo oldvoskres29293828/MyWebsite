@@ -1,11 +1,13 @@
 // 🔧 Настройки Firebase — замени своими данными из консоли Firebase
 const firebaseConfig = {
+  const firebaseConfig = {
   apiKey: "AIzaSyAcKl7MYsjts5mvTf6Tpp1luePwt2TOYvU",
   authDomain: "website-683a6.firebaseapp.com",
   projectId: "website-683a6",
-  storageBucket: "website-683a6.appspot.com",
+  storageBucket: "website-683a6.appspot.com", // ✅ исправлено
   messagingSenderId: "879721526266",
-  appId: "1:879721526266:web:9b57e581e583f3aa97ea43"
+  appId: "1:879721526266:web:9b57e581e583f3aa97ea43",
+  measurementId: "G-KB8P2B9X4Z"
 };
 
 // 🧠 Инициализация Firebase
