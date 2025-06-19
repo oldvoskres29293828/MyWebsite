@@ -1,91 +1,70 @@
-// Инициализация переменных
-let playerName = "Гость";
-let playerLevel = 1;
-let playerClicks = 0;
-let weaponEquipped = false;
-let armorEquipped = false;
-let clanName = null;
-let clanMembers = [];
+// Функция для отображения сообщений
+function displayMessages() {
+  const messagesContainer = document.getElementById("messages");
+  messagesContainer.innerHTML = ''; // Очищаем контейнер перед выводом новых сообщений
 
-// Получаем элементы на странице
-const playerNameElement = document.getElementById("playerName");
-const playerLevelElement = document.getElementById("playerLevel");
-const playerClicksElement = document.getElementById("playerClicks");
-const eggElement = document.getElementById("egg");
-const buyWeaponButton = document.getElementById("buyWeapon");
-const buyArmorButton = document.getElementById("buyArmor");
-const createClanButton = document.getElementById("createClan");
-const joinClanButton = document.getElementById("joinClan");
-const clanNameElement = document.getElementById("clanName");
-const fightClanButton = document.getElementById("fightClan");
+  const messages = JSON.parse(localStorage.getItem('messages')) || [];
 
-// Обновление профиля игрока
-function updateProfile() {
-  playerNameElement.textContent = `Имя: ${playerName}`;
-  playerLevelElement.textContent = `Уровень: ${playerLevel}`;
-  playerClicksElement.textContent = `Клики: ${playerClicks}`;
+  messages.forEach(message => {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    messageElement.innerHTML = `
+      <p>${message.text}</p>
+      <button class="replyButton">Ответить</button>
+      <div class="replies"></div>
+    `;
+
+    // Добавляем обработчик для кнопки "Ответить"
+    const replyButton = messageElement.querySelector('.replyButton');
+    replyButton.addEventListener('click', () => {
+      const replyText = prompt('Ваш ответ:');
+      if (replyText) {
+        message.replies.push(replyText);  // Добавляем ответ к сообщению
+        saveMessages();  // Сохраняем изменения
+        displayMessages();  // Обновляем отображение сообщений
+      }
+    });
+
+    // Отображаем ответы
+    const repliesContainer = messageElement.querySelector('.replies');
+    message.replies.forEach(reply => {
+      const replyElement = document.createElement('div');
+      replyElement.classList.add('reply');
+      replyElement.innerText = reply;
+      repliesContainer.appendChild(replyElement);
+    });
+
+    messagesContainer.appendChild(messageElement);
+  });
 }
 
-// Обработчик кликов по яйцу
-eggElement.addEventListener("click", function() {
-  playerClicks += 1;
-  updateProfile();
-});
+// Функция для сохранения сообщений в localStorage
+function saveMessages() {
+  const messages = JSON.parse(localStorage.getItem('messages')) || [];
+  localStorage.setItem('messages', JSON.stringify(messages));
+}
 
-// Логика покупки оружия
-buyWeaponButton.addEventListener("click", function() {
-  if (playerClicks >= 100) {
-    playerClicks -= 100;
-    weaponEquipped = true;
-    updateProfile();
-    alert("Меч куплен!");
+// Обработчик отправки нового сообщения
+document.getElementById('postMessage').addEventListener('click', () => {
+  const messageInput = document.getElementById('messageInput');
+  const messageText = messageInput.value.trim();
+  
+  if (messageText) {
+    const messages = JSON.parse(localStorage.getItem('messages')) || [];
+    const newMessage = {
+      text: messageText,
+      replies: []  // Начальные ответы
+    };
+    
+    messages.push(newMessage);
+    saveMessages();
+    displayMessages();
+
+    messageInput.value = '';  // Очищаем поле ввода
   } else {
-    alert("Недостаточно кликов для покупки меча!");
+    alert('Пожалуйста, введите сообщение!');
   }
 });
 
-// Логика покупки брони
-buyArmorButton.addEventListener("click", function() {
-  if (playerClicks >= 200) {
-    playerClicks -= 200;
-    armorEquipped = true;
-    updateProfile();
-    alert("Броня куплена!");
-  } else {
-    alert("Недостаточно кликов для покупки брони!");
-  }
-});
-
-// Логика создания клана
-createClanButton.addEventListener("click", function() {
-  if (!clanName) {
-    clanName = prompt("Введите имя для клана:");
-    clanNameElement.textContent = clanName;
-    alert(`Клан "${clanName}" создан!`);
-  } else {
-    alert("У вас уже есть клан!");
-  }
-});
-
-// Логика присоединения к клану
-joinClanButton.addEventListener("click", function() {
-  if (!clanName) {
-    alert("Присоединитесь к клану!");
-  } else {
-    clanMembers.push(playerName);
-    alert(`Вы присоединились к клану "${clanName}"!`);
-  }
-});
-
-// Логика битвы с кланом
-fightClanButton.addEventListener("click", function() {
-  if (clanMembers.length > 0) {
-    alert("Сражение с кланом началось!");
-    // Можно добавить логику битвы, например, победу или поражение
-  } else {
-    alert("Присоединитесь к клану, чтобы сражаться!");
-  }
-});
-
-// Инициализация профиля при загрузке страницы
-updateProfile();
+// Инициализация и отображение сообщений при загрузке страницы
+displayMessages();
