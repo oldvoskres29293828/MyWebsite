@@ -3,35 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Кликер с кланами</title>
+  <title>Анонимное общение</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <h1>Кликер: Яйцо</h1>
+  <div class="container">
+    <h1>Анонимное общение</h1>
 
-  <div class="profile">
-    <h2>Профиль игрока</h2>
-    <p id="playerName">Имя: Гость</p>
-    <p id="playerLevel">Уровень: 1</p>
-    <p id="playerClicks">Клики: 0</p>
+    <!-- Форма для отправки сообщения -->
+    <div class="new-message">
+      <textarea id="messageInput" placeholder="Напишите ваше сообщение..."></textarea>
+      <button id="postMessage">Отправить</button>
+    </div>
+
+    <!-- Блок с сообщениями -->
+    <div id="messages"></div>
   </div>
 
-  <div id="egg" class="egg"></div>
-  
-  <div class="shop">
-    <h2>Магазин</h2>
-    <button id="buyWeapon">Купить Меч (100 кликов)</button>
-    <button id="buyArmor">Купить Броню (200 кликов)</button>
-    <button id="createClan">Создать клан</button>
-    <button id="joinClan">Присоединиться к клану</button>
-  </div>
-
-  <div class="clan">
-    <h2>Клан: <span id="clanName">Нет</span></h2>
-    <button id="fightClan">Сражаться с кланом</button>
-  </div>
-
-  <script src="js/game.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
