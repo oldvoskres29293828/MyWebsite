@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Egg Clicker</title>
-  <link rel="stylesheet" href="style/main.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кликер с кланами</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="game-container">
-    <div class="top-bar">
-      <div class="stat"><img src="assets/icons/heart.png" alt="❤️"> <span id="lives">1</span></div>
-      <div class="stat"><img src="assets/icons/coin.png" alt="💰"> <span id="coins">0</span></div>
-      <div class="stat"><img src="assets/icons/click.png" alt="🖱️"> <span id="clicks">0</span></div>
-    </div>
 
-    <h1 class="title">Кликай по яйцу!</h1>
-    <div class="egg-wrapper">
-      <img src="assets/egg.png" alt="Egg" class="egg" onclick="addClick()" />
-    </div>
+  <h1>Кликер: Яйцо</h1>
 
-    <div class="mega-clicks">Мега клик: <span id="mega">0</span></div>
-
-    <div class="button-group">
-      <button onclick="openStore()">МАГАЗИН</button>
-      <button onclick="rebirth()">РЕБИТХ</button>
-    </div>
+  <div class="profile">
+    <h2>Профиль игрока</h2>
+    <p id="playerName">Имя: Гость</p>
+    <p id="playerLevel">Уровень: 1</p>
+    <p id="playerClicks">Клики: 0</p>
   </div>
 
-  <script src="scripts/game.js"></script>
-  <script src="storage/save.js"></script>
+  <div id="egg" class="egg"></div>
+  
+  <div class="shop">
+    <h2>Магазин</h2>
+    <button id="buyWeapon">Купить Меч (100 кликов)</button>
+    <button id="buyArmor">Купить Броню (200 кликов)</button>
+    <button id="createClan">Создать клан</button>
+    <button id="joinClan">Присоединиться к клану</button>
+  </div>
+
+  <div class="clan">
+    <h2>Клан: <span id="clanName">Нет</span></h2>
+    <button id="fightClan">Сражаться с кланом</button>
+  </div>
+
+  <script src="js/game.js"></script>
 </body>
 </html>
