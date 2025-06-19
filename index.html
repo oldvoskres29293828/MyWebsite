@@ -3,20 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Кликер по яйцу</title>
-  <link rel="stylesheet" href="css/style.css"> <!-- Подключаем внешний файл стилей -->
+  <title>Egg Clicker</title>
+  <link rel="stylesheet" href="style/main.css" />
 </head>
 <body>
+  <div class="game-container">
+    <div class="top-bar">
+      <div class="stat"><img src="assets/icons/heart.png" alt="❤️"> <span id="lives">1</span></div>
+      <div class="stat"><img src="assets/icons/coin.png" alt="💰"> <span id="coins">0</span></div>
+      <div class="stat"><img src="assets/icons/click.png" alt="🖱️"> <span id="clicks">0</span></div>
+    </div>
 
-  <h1>Кликай по яйцу!</h1>
-  <div class="counter" id="counter">0</div>
-  <div id="egg"></div>
+    <h1 class="title">Кликай по яйцу!</h1>
+    <div class="egg-wrapper">
+      <img src="assets/egg.png" alt="Egg" class="egg" onclick="addClick()" />
+    </div>
 
-  <div class="buttons">
-    <button class="shop-button" id="upgradeButton">Увеличить на 2 за 50 очков</button>
-    <button class="rebirth-button" id="rebirthButton">Rebirth (сбросить, но получить бонус)</button>
+    <div class="mega-clicks">Мега клик: <span id="mega">0</span></div>
+
+    <div class="button-group">
+      <button onclick="openStore()">МАГАЗИН</button>
+      <button onclick="rebirth()">РЕБИТХ</button>
+    </div>
   </div>
 
-  <script src="js/script.js"></script> <!-- Подключаем внешний файл JavaScript -->
+  <script src="scripts/game.js"></script>
+  <script src="storage/save.js"></script>
 </body>
 </html>
