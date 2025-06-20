@@ -1,1 +1,46 @@
+body {
+  font-family: sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+}
 
+#register, #chat {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px #0001;
+}
+
+#users-panel {
+  float: left;
+  width: 180px;
+}
+
+#main-chat {
+  margin-left: 200px;
+}
+
+#user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.messages {
+  height: 200px;
+  overflow-y: auto;
+  background: #eee;
+  padding: 6px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+#tabs button {
+  margin-right: 8px;
+  padding: 6px 12px;
+}
+#tabs .active {
+  font-weight: bold;
+  background: #ddd;
+}
