@@ -1,1 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Telegram Game</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    button { font-size: 24px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <h1>🎮 Telegram HTML5 Game</h1>
+  <p>Нажми кнопку, чтобы набрать очки</p>
+  <button onclick="score()">Набрать очко</button>
+  <p id="counter">Очки: 0</p>
 
+  <script>
+    let points = 0;
+    function score() {
+      points++;
+      document.getElementById('counter').innerText = 'Очки: ' + points;
+    }
+  </script>
+</body>
+</html>
